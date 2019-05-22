@@ -16,7 +16,7 @@ def login():
         if user is not None and user.check_login(form.password.data):
             login_user(user)
             flash('登陆成功！欢迎回来，%s!' % user.username, 'success')
-            return redirect(url_for('main.index'))
+            return redirect(request.args.get('next') or url_for('main.index'))
         else:
             flash('登录失败！用户名或密码错误。', 'danger')
 
@@ -28,13 +28,17 @@ def register():
     form = RegisterForm()
 
     if request.method == 'POST' and form.validate_on_submit():
-        user = UserModel(username=form.username.data, password=form.password.data)
-        db.session.add(user)
-        db.session.commit()
+        user = UserModel.query.filter_by(username=form.username.data).first()  # type: UserModel
+        if user is None:
+            user = UserModel(username=form.username.data, password=form.password.data)
+            db.session.add(user)
+            db.session.commit()
 
-        login_user(user)
-        flash('注册成功！欢迎，%s。' % user.username, 'success')
-        return redirect(url_for('main.index'))
+            login_user(user)
+            flash('注册成功！欢迎，%s。' % user.username, 'success')
+            return redirect(url_for('main.index'))
+        else:
+            flash('注册失败！用户已存在：%s。' % user.username, 'danger')
 
     return render_template('user/register.html', form=form)
 
@@ -43,4 +47,5 @@ def register():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('user.login'))
+    flash('注销成功！', 'success')
+    return redirect(request.referrer)

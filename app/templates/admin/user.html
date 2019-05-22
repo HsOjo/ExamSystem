@@ -1,0 +1,42 @@
+{% extends 'admin/base.html' %}
+
+{% block title %}
+    {{ super() }}-用户管理
+{% endblock %}
+
+{% block inner_content %}
+    <ul id="tab" class="nav nav-tabs">
+        <li class="active"><a href="#list" data-toggle="tab">用户列表</a></li>
+        <li><a href="#add" data-toggle="tab">添加用户</a></li>
+    </ul>
+    <div id="tab_content" class="tab-content">
+        <div class="tab-pane fade in active" id="list">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>用户名</th>
+                    <th>是否管理员</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.is_admin }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="add">
+            <div class="placeholder"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    {{ wtf.quick_form(form_user_add, action=url_for('admin.user_add')) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

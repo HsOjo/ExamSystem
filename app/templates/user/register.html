@@ -1,19 +1,11 @@
-{% extends 'bootstrap/base.html' %}
-{% import 'bootstrap/wtf.html' as wtf %}
+{% extends 'common/base.html' %}
 
 {% block title %}注册{% endblock %}
 
-{% block navbar %}
-    {% include 'common/navbar.html' %}
-{% endblock %}
-
-{% block content %}
-    <div class="container">
-        {% include 'common/flash.html' %}
-        <div class="row">
-            <div class="col-md-4">
-                {{ wtf.quick_form(form) }}
-            </div>
+{% block inner_content %}
+    <div class="row">
+        <div class="col-md-4">
+            {{ wtf.quick_form(form) }}
         </div>
     </div>
 {% endblock %}

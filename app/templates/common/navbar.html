@@ -1,4 +1,4 @@
-<div class="navbar navbar-inverse" role="navigation">
+<nav class="navbar navbar-inverse" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="{{ url_for('main.index') }}">智能判题系统</a>
@@ -14,7 +14,7 @@
                         {% if current_user.is_authenticated %}
                             {{ current_user.username }}
                         {% else %}
-                            游客
+                            访客
                         {% endif %}
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -33,4 +33,4 @@
             </ul>
         </div>
     </div>
-</div>
+</nav>
