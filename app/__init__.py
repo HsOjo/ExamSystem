@@ -32,4 +32,7 @@ def create_app(config):
     from .user import user as bp_user
     app.register_blueprint(bp_user)
 
+    from .admin import admin as bp_admin
+    app.register_blueprint(bp_admin)
+
     return app

@@ -1,11 +1,11 @@
 <div class="navbar navbar-inverse" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">智能判题系统</a>
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">智能判题系统</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/">首页</a></li>
+                <li><a href="{{ url_for('main.index') }}">首页</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
@@ -18,6 +18,10 @@
                         {% endif %}
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
+                        {% if current_user.is_admin %}
+                            <li><a href="{{ url_for('admin.index') }}">管理后台</a></li>
+                            <li class="divider"></li>
+                        {% endif %}
                         {% if current_user.is_authenticated %}
                             <li><a href="{{ url_for('user.logout') }}">注销</a></li>
                         {% else %}
