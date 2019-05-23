@@ -1,5 +1,7 @@
 <div class="col-sm-3 col-md-2 sidebar">
     <ul class="nav nav-sidebar">
-        <li><a href="{{ url_for('admin.user') }}">用户管理</a></li>
+        {% for item in get_admin_left_list() %}
+            <li><a href="{{ url_for(item) }}">{{ item }}</a></li>
+        {% endfor %}
     </ul>
 </div>

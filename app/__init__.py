@@ -32,6 +32,9 @@ def create_app(config):
     from .user import user as bp_user
     app.register_blueprint(bp_user)
 
+    from .exam import exam as bp_exam
+    app.register_blueprint(bp_exam)
+
     from .admin import admin as bp_admin
     app.register_blueprint(bp_admin)
 

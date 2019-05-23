@@ -1,0 +1,28 @@
+{% extends 'admin/base.html' %}
+
+{% block title %}
+    {{ super() }}-分类管理
+{% endblock %}
+
+{% block inner_content %}
+    <ul id="tab" class="nav nav-tabs">
+        <li class="active"><a href="{{ url_for('admin.category') }}">分类列表</a></li>
+        <li><a href="{{ url_for('admin.category_add') }}">添加分类</a></li>
+    </ul>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>分类名称</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td>{{ category.id }}</td>
+                <td>{{ category.name }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
