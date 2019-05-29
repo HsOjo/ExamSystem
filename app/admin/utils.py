@@ -14,7 +14,7 @@ def admin_required(func):
     return login_required(decorated_view)
 
 
-def get_admin_left_list():
+def get_admin_top_modules():
     app = current_app  # type: Flask
     rules = [i.endpoint for i in list(app.url_map.iter_rules())]
     rules = list(set(rules))

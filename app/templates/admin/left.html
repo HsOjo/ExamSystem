@@ -1,7 +1,7 @@
 <div class="col-sm-3 col-md-2 sidebar">
     <ul class="nav nav-sidebar">
-        {% for item in get_admin_left_list() %}
-            <li><a href="{{ url_for(item) }}">{{ item }}</a></li>
+        {% for item in MenuModel.query.all() %}
+            <li><a href="{{ url_for(item.module) }}">{{ item.name }}</a></li>
         {% endfor %}
     </ul>
 </div>
