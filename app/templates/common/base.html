@@ -11,3 +11,8 @@
         {% block inner_content %}{% endblock %}
     </div>
 {% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='common/helper.js') }}"></script>
+{% endblock %}

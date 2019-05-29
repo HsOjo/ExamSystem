@@ -22,3 +22,9 @@
         </div>
     </div>
 {% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='common/helper.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/helper.js') }}"></script>
+{% endblock %}

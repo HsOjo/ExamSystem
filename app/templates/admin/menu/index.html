@@ -14,6 +14,8 @@
         <tr>
             <th>ID</th>
             <th>菜单名称</th>
+            <th>模块</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody>
@@ -21,6 +23,11 @@
             <tr>
                 <td>{{ menu.id }}</td>
                 <td>{{ menu.name }}</td>
+                <td>{{ menu.module }}</td>
+                <td>
+                    <a href="{{ url_for('admin.menu_edit', id=menu.id) }}">编辑</a>
+                    <a href="{{ url_for('admin.menu_delete', id=menu.id) }}" class="js-del-confirm">删除</a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
