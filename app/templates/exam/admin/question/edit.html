@@ -1,0 +1,19 @@
+{% extends 'admin/base.html' %}
+
+{% block title %}
+    {{ super() }}-编辑问题
+{% endblock %}
+
+{% block inner_content %}
+    <ul id="tab" class="nav nav-tabs">
+        <li><a href="{{ url_for('admin.question') }}">问题列表</a></li>
+        <li><a href="{{ url_for('admin.question_add') }}">添加问题</a></li>
+        <li class="active"><a href="{{ request.path }}">编辑问题</a></li>
+    </ul>
+    <div class="placeholder"></div>
+    <div class="row">
+        <div class="col-md-4">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+{% endblock %}
