@@ -7,3 +7,4 @@ class MenuModel(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.VARCHAR)
     module = db.Column(db.VARCHAR)
+    url = db.Column(db.VARCHAR)

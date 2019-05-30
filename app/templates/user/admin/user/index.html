@@ -15,6 +15,7 @@
             <th>ID</th>
             <th>用户名</th>
             <th>是否管理员</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody>
@@ -23,6 +24,10 @@
                 <td>{{ user.id }}</td>
                 <td>{{ user.username }}</td>
                 <td>{{ user.is_admin }}</td>
+                <td>
+                    <a href="{{ url_for('admin.user_edit', id=user.id) }}">编辑</a>
+                    <a href="{{ url_for('admin.user_delete', id=user.id) }}" class="js-del-confirm">删除</a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>

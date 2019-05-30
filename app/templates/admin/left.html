@@ -1,7 +1,11 @@
 <div class="col-sm-3 col-md-2 sidebar">
     <ul class="nav nav-sidebar">
         {% for item in MenuModel.query.all() %}
-            <li><a href="{{ url_for(item.module) }}">{{ item.name }}</a></li>
+            {% if item.module != '' and check_rule_valid(item.module) %}
+                <li><a href="{{ url_for(item.module) }}">{{ item.name }}</a></li>
+            {% else %}
+                <li><a href="{{ item.url }}">{{ item.name }}</a></li>
+            {% endif %}
         {% endfor %}
     </ul>
 </div>

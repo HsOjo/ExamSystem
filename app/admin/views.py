@@ -1,10 +1,11 @@
-from flask import render_template, request, flash, redirect, url_for
+from flask import render_template, request, flash, redirect
 
 from . import admin
 from .forms import MenuAddForm, MenuEditForm
 from .models import MenuModel
 from .utils import admin_required
 from .. import db
+from ..common import check_rule_valid
 
 
 @admin.route('/admin')
@@ -27,11 +28,14 @@ def menu_add():
     form = MenuAddForm()
 
     if request.method == 'POST' and form.validate_on_submit():
-        menu = MenuModel(name=form.name.data, module=form.module.data)
+        if check_rule_valid(form.module.data) or form.module.data == '':
+            menu = MenuModel(name=form.name.data, module=form.module.data, url=form.url.data)
 
-        db.session.add(menu)
-        db.session.commit()
-        flash('%s 添加成功！' % menu.name, 'success')
+            db.session.add(menu)
+            db.session.commit()
+            flash('%s 添加成功！' % menu.name, 'success')
+        else:
+            flash('%s 添加失败！不存在该模块。' % form.module.data, 'danger')
 
     return render_template('admin/menu/add.html', form=form)
 
@@ -40,15 +44,23 @@ def menu_add():
 @admin_required
 def menu_edit(id):
     form = MenuEditForm()
+    menu = MenuModel.query.get(id)  # type: MenuModel
 
     if request.method == 'POST' and form.validate_on_submit():
-        menu = MenuModel.query.get(id)  # type: MenuModel
-        menu.name = form.name.data
-        menu.module = form.module.data
+        if check_rule_valid(form.module.data) or form.module.data == '':
+            menu.name = form.name.data
+            menu.module = form.module.data
+            menu.url = form.url.data
 
-        db.session.add(menu)
-        db.session.commit()
-        flash('%s 编辑成功！' % menu.name, 'success')
+            db.session.add(menu)
+            db.session.commit()
+            flash('%s 编辑成功！' % menu.name, 'success')
+        else:
+            flash('%s 编辑失败！不存在该模块。' % form.module.data, 'danger')
+    else:
+        form.name.data = menu.name
+        form.module.data = menu.module
+        form.url.data = menu.url
 
     return render_template('admin/menu/edit.html', form=form)
 
@@ -62,4 +74,4 @@ def menu_delete(id):
     db.session.commit()
     flash('%s 删除成功！' % menu.name, 'success')
 
-    return redirect(url_for('admin.menu'))
+    return redirect(request.referrer)

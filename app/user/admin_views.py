@@ -1,7 +1,7 @@
-from flask import render_template, request, flash
+from flask import render_template, request, flash, redirect
 from flask_login import login_user
 
-from .admin_forms import UserAddForm
+from .admin_forms import UserAddForm, UserEditForm
 from .. import db
 from ..admin import admin
 from ..admin.utils import admin_required
@@ -34,3 +34,37 @@ def user_add():
             flash('%s 添加失败！用户已存在。' % user.username, 'danger')
 
     return render_template('user/admin/user/add.html', form=form)
+
+
+@admin.route('/admin/user/edit/<int:id>', methods=['GET', 'POST'])
+@admin_required
+def user_edit(id):
+    form = UserEditForm()
+    user = UserModel.query.get(id)  # type: UserModel
+
+    if request.method == 'POST' and form.validate_on_submit():
+        user.username = form.username.data
+        user.password = form.password.data
+        user.is_admin = form.is_admin.data
+
+        db.session.add(user)
+        db.session.commit()
+        flash('%s 编辑成功！' % user.name, 'success')
+    else:
+        form.username.data = user.username
+        form.password.data = user.password
+        form.is_admin.data = user.is_admin
+
+    return render_template('user/admin/user/edit.html', form=form)
+
+
+@admin.route('/admin/user/delete/<int:id>')
+@admin_required
+def user_delete(id):
+    user = UserModel.query.get(id)  # type: UserModel
+
+    db.session.delete(user)
+    db.session.commit()
+    flash('%s 删除成功！' % user.name, 'success')
+
+    return redirect(request.referrer)

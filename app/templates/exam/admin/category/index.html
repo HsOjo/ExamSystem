@@ -14,6 +14,7 @@
         <tr>
             <th>ID</th>
             <th>分类名称</th>
+            <th width="100">操作</th>
         </tr>
         </thead>
         <tbody>
@@ -21,6 +22,10 @@
             <tr>
                 <td>{{ category.id }}</td>
                 <td>{{ category.name }}</td>
+                <td>
+                    <a href="{{ url_for('admin.category_edit', id=category.id) }}">编辑</a>
+                    <a href="{{ url_for('admin.category_delete', id=category.id) }}" class="js-del-confirm">删除</a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
