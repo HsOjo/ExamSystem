@@ -8,21 +8,21 @@ from .. import db
 from ..common import check_rule_valid
 
 
-@admin.route('/admin')
-@admin.route('/admin/index')
+@admin.route('/')
+@admin.route('/index')
 @admin_required
 def index():
     return render_template('admin/index.html')
 
 
-@admin.route('/admin/menu')
+@admin.route('/menu')
 @admin_required
 def menu():
     menus = MenuModel.query.all()
     return render_template('admin/menu/index.html', menus=menus)
 
 
-@admin.route('/admin/menu/add', methods=['GET', 'POST'])
+@admin.route('/menu/add', methods=['GET', 'POST'])
 @admin_required
 def menu_add():
     form = MenuAddForm()
@@ -40,7 +40,7 @@ def menu_add():
     return render_template('admin/menu/add.html', form=form)
 
 
-@admin.route('/admin/menu/edit/<int:id>', methods=['GET', 'POST'])
+@admin.route('/menu/edit/<int:id>', methods=['GET', 'POST'])
 @admin_required
 def menu_edit(id):
     form = MenuEditForm()
@@ -65,7 +65,7 @@ def menu_edit(id):
     return render_template('admin/menu/edit.html', form=form)
 
 
-@admin.route('/admin/menu/delete/<int:id>')
+@admin.route('/menu/delete/<int:id>')
 @admin_required
 def menu_delete(id):
     menu = MenuModel.query.get(id)  # type: MenuModel

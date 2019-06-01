@@ -7,15 +7,15 @@ from ..admin import admin
 from ..admin.utils import admin_required
 
 
-@admin.route('/admin/category')
-@admin.route('/admin/category/index')
+@admin.route('/exam/category')
+@admin.route('/exam/category/index')
 @admin_required
 def category():
     categories = CategoryModel.query.all()
     return render_template('exam/admin/category/index.html', categories=categories)
 
 
-@admin.route('/admin/category/add', methods=['GET', 'POST'])
+@admin.route('/exam/category/add', methods=['GET', 'POST'])
 @admin_required
 def category_add():
     form = CategoryAddForm()
@@ -29,7 +29,7 @@ def category_add():
     return render_template('exam/admin/category/add.html', form=form)
 
 
-@admin.route('/admin/category/edit/<int:id>', methods=['GET', 'POST'])
+@admin.route('/exam/category/edit/<int:id>', methods=['GET', 'POST'])
 @admin_required
 def category_edit(id):
     form = CategoryEditForm()
@@ -47,7 +47,7 @@ def category_edit(id):
     return render_template('exam/admin/category/edit.html', form=form)
 
 
-@admin.route('/admin/category/delete/<int:id>')
+@admin.route('/exam/category/delete/<int:id>')
 @admin_required
 def category_delete(id):
     category = CategoryModel.query.get(id)  # type: CategoryModel
@@ -59,15 +59,15 @@ def category_delete(id):
     return redirect(request.referrer)
 
 
-@admin.route('/admin/question')
-@admin.route('/admin/question/index')
+@admin.route('/exam/question')
+@admin.route('/exam/question/index')
 @admin_required
 def question():
     questions = QuestionModel.query.all()
     return render_template('exam/admin/question/index.html', questions=questions)
 
 
-@admin.route('/admin/question/add', methods=['GET', 'POST'])
+@admin.route('/exam/question/add', methods=['GET', 'POST'])
 @admin_required
 def question_add():
     form = QuestionAddForm()
@@ -81,7 +81,7 @@ def question_add():
     return render_template('exam/admin/question/add.html', form=form)
 
 
-@admin.route('/admin/question/edit/<int:id>', methods=['GET', 'POST'])
+@admin.route('/exam/question/edit/<int:id>', methods=['GET', 'POST'])
 @admin_required
 def question_edit(id):
     form = QuestionEditForm()
@@ -99,7 +99,7 @@ def question_edit(id):
     return render_template('exam/admin/question/edit.html', form=form)
 
 
-@admin.route('/admin/question/delete/<int:id>')
+@admin.route('/exam/question/delete/<int:id>')
 @admin_required
 def question_delete(id):
     question = QuestionModel.query.get(id)  # type: QuestionModel

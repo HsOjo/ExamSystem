@@ -30,12 +30,12 @@ def create_app(config):
     app.register_blueprint(bp_main)
 
     from .user import user as bp_user
-    app.register_blueprint(bp_user)
+    app.register_blueprint(bp_user, url_prefix='/user')
 
     from .exam import exam as bp_exam
-    app.register_blueprint(bp_exam)
+    app.register_blueprint(bp_exam, url_prefix='/exam')
 
     from .admin import admin as bp_admin
-    app.register_blueprint(bp_admin)
+    app.register_blueprint(bp_admin, url_prefix='/admin')
 
     return app
