@@ -4,7 +4,7 @@
 {% block title %}管理后台{% endblock %}
 {% block styles %}
     {{ super() }}
-    <link href="{{ url_for('static', filename='admin/dashboard.css') }}" rel="stylesheet">
+    <link href="{{ url_for('admin.static', filename='dashboard.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block navbar %}
@@ -26,5 +26,5 @@
 {% block scripts %}
     {{ super() }}
     <script src="{{ url_for('static', filename='common/helper.js') }}"></script>
-    <script src="{{ url_for('static', filename='admin/helper.js') }}"></script>
+    <script src="{{ url_for('admin.static', filename='helper.js') }}"></script>
 {% endblock %}
