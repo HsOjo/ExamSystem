@@ -16,6 +16,18 @@ class UserModel(UserMixin, db.Model):
     def check_login(self, password):
         return self.password == password
 
+    @staticmethod
+    def inject_test_data():
+        users = [
+            {'username': 'admin', 'password': '123456', 'is_admin': True},
+            {'username': 'user', 'password': '123456', 'is_admin': False},
+        ]
+
+        for user in users:
+            item = UserModel(**user)
+            db.session.add(item)
+            db.session.commit()
+
 
 @login_manager.user_loader
 def load_user(user_id):

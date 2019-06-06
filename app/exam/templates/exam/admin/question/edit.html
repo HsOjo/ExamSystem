@@ -6,8 +6,8 @@
 
 {% block inner_content %}
     <ul id="tab" class="nav nav-tabs">
-        <li><a href="{{ url_for('admin.question') }}">问题列表</a></li>
-        <li><a href="{{ url_for('admin.question_add') }}">添加问题</a></li>
+        <li><a href="{{ url_for('exam_admin_question.index') }}">问题列表</a></li>
+        <li><a href="{{ url_for('exam_admin_question.add') }}">添加问题</a></li>
         <li class="active"><a href="{{ request.path }}">编辑问题</a></li>
     </ul>
     <div class="placeholder"></div>

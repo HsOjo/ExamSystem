@@ -8,3 +8,17 @@ class MenuModel(db.Model):
     name = db.Column(db.VARCHAR)
     module = db.Column(db.VARCHAR)
     url = db.Column(db.VARCHAR)
+
+    @staticmethod
+    def inject_test_data():
+        menus = [
+            {'name': '菜单管理', 'module': 'admin.menu'},
+            {'name': '用户管理', 'module': 'user_admin.index'},
+            {'name': '问题分类管理', 'module': 'exam_admin.category'},
+            {'name': '问题管理', 'module': 'exam_admin.question'},
+        ]
+
+        for menu in menus:
+            item = MenuModel(**menu)
+            db.session.add(item)
+            db.session.commit()

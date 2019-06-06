@@ -6,8 +6,8 @@
 
 {% block inner_content %}
     <ul id="tab" class="nav nav-tabs">
-        <li class="active"><a href="{{ url_for('admin.question') }}">问题列表</a></li>
-        <li><a href="{{ url_for('admin.question_add') }}">添加问题</a></li>
+        <li class="active"><a href="{{ url_for('exam_admin_question.index') }}">问题列表</a></li>
+        <li><a href="{{ url_for('exam_admin_question.add') }}">添加问题</a></li>
     </ul>
     <table class="table table-hover">
         <thead>
@@ -23,8 +23,8 @@
                 <td>{{ question.id }}</td>
                 <td>{{ question.name }}</td>
                 <td>
-                    <a href="{{ url_for('admin.question_edit', id=question.id) }}">编辑</a>
-                    <a href="{{ url_for('admin.question_delete', id=question.id) }}" class="js-del-confirm">删除</a>
+                    <a href="{{ url_for('exam_admin_question.edit', id=question.id) }}">编辑</a>
+                    <a href="{{ url_for('exam_admin_question.delete', id=question.id) }}" class="js-del-confirm">删除</a>
                 </td>
             </tr>
         {% endfor %}

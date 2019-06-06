@@ -1,24 +1,24 @@
 from flask import render_template, request, flash, redirect
 from flask_login import login_user
 
-from .admin_forms import UserAddForm, UserEditForm
-from .. import db
-from ..admin import admin
-from ..admin.utils import admin_required
-from ..user.models import UserModel
+from .forms import UserAddForm, UserEditForm
+from .. import user_admin
+from ... import db
+from ...admin.utils import admin_required
+from ...user.models import UserModel
 
 
-@admin.route('/user')
-@admin.route('/user/index')
+@user_admin.route('/')
+@user_admin.route('/index')
 @admin_required
-def user():
+def index():
     users = UserModel.query.all()
     return render_template('user/admin/user/index.html', users=users)
 
 
-@admin.route('/user/add', methods=['GET', 'POST'])
+@user_admin.route('/add', methods=['GET', 'POST'])
 @admin_required
-def user_add():
+def add():
     form = UserAddForm()
 
     if request.method == 'POST' and form.validate_on_submit():
@@ -36,9 +36,9 @@ def user_add():
     return render_template('user/admin/user/add.html', form=form)
 
 
-@admin.route('/user/edit/<int:id>', methods=['GET', 'POST'])
+@user_admin.route('/edit/<int:id>', methods=['GET', 'POST'])
 @admin_required
-def user_edit(id):
+def edit(id):
     form = UserEditForm()
     user = UserModel.query.get(id)  # type: UserModel
 
@@ -58,9 +58,9 @@ def user_edit(id):
     return render_template('user/admin/user/edit.html', form=form)
 
 
-@admin.route('/user/delete/<int:id>')
+@user_admin.route('/delete/<int:id>')
 @admin_required
-def user_delete(id):
+def delete(id):
     user = UserModel.query.get(id)  # type: UserModel
 
     db.session.delete(user)
