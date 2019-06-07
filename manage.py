@@ -1,9 +1,10 @@
 from flask_migrate import Migrate, MigrateCommand
-from flask_script import Manager
+from flask_script import Manager, Shell
 
 from app import db, create_app
 from app.admin.models import MenuModel
 from app.common import check_rule_valid
+from app.exam.models import QuestionModel, CategoryModel
 from app.user.models import UserModel
 from config import Config
 
@@ -16,6 +17,19 @@ manager = Manager(app)
 migrate = Migrate(app, db)
 
 manager.add_command('db', MigrateCommand)
+
+
+def make_shell_context():
+    return dict(
+        db=db,
+        MenuModel=MenuModel,
+        UserModel=UserModel,
+        CategoryModel=CategoryModel,
+        QuestionModel=QuestionModel,
+    )
+
+
+manager.add_command("shell", Shell(make_context=make_shell_context))
 
 
 @manager.command

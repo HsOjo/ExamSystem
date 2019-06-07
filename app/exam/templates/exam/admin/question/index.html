@@ -13,15 +13,21 @@
         <thead>
         <tr>
             <th width="80">ID</th>
-            <th>问题名称</th>
+            <th>问题</th>
+            <th>类型</th>
+            <th>难度</th>
+            <th>分类</th>
             <th width="120">操作</th>
         </tr>
         </thead>
         <tbody>
-        {% for question in categories %}
+        {% for question in questions %}
             <tr>
                 <td>{{ question.id }}</td>
-                <td>{{ question.name }}</td>
+                <td>{{ question.title }}</td>
+                <td>{{ question.type }}</td>
+                <td>{{ question.rank }}</td>
+                <td>{{ question.category.name }}</td>
                 <td>
                     <a href="{{ url_for('exam_admin_question.edit', id=question.id) }}">编辑</a>
                     <a href="{{ url_for('exam_admin_question.delete', id=question.id) }}" class="js-del-confirm">删除</a>

@@ -5,19 +5,20 @@ class CategoryModel(db.Model):
     __tablename__ = 'categories'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.VARCHAR)
+    questions = db.relationship('QuestionModel', backref='category')
 
     def __init__(self, **kwargs):
         super(CategoryModel, self).__init__(**kwargs)
 
     @staticmethod
     def inject_test_data():
-        users = [
+        categories = [
             {'name': '第一章'},
             {'name': '第二章'},
         ]
 
-        for user in users:
-            item = CategoryModel(**user)
+        for category in categories:
+            item = CategoryModel(**category)
             db.session.add(item)
             db.session.commit()
 
@@ -27,6 +28,7 @@ class QuestionModel(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     type = db.Column(db.Integer)
     rank = db.Column(db.Integer)
+    title = db.Column(db.VARCHAR)
     data = db.Column(db.VARCHAR)
     correct = db.Column(db.VARCHAR)
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
