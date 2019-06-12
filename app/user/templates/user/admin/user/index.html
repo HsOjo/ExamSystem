@@ -6,8 +6,8 @@
 
 {% block inner_content %}
     <ul id="tab" class="nav nav-tabs">
-        <li class="active"><a href="{{ url_for('user_admin.index') }}">用户列表</a></li>
-        <li><a href="{{ url_for('user_admin.add') }}">添加用户</a></li>
+        <li class="active"><a href="{{ url_for('user.admin.index') }}">用户列表</a></li>
+        <li><a href="{{ url_for('user.admin.add') }}">添加用户</a></li>
     </ul>
     <table class="table table-hover">
         <thead>
@@ -25,8 +25,8 @@
                 <td>{{ user.username }}</td>
                 <td>{{ user.is_admin }}</td>
                 <td>
-                    <a href="{{ url_for('user_admin.edit', id=user.id) }}">编辑</a>
-                    <a href="{{ url_for('user_admin.delete', id=user.id) }}" class="js-del-confirm">删除</a>
+                    <a href="{{ url_for('user.admin.edit', id=user.id) }}">编辑</a>
+                    <a href="{{ url_for('user.admin.delete', id=user.id) }}" class="js-del-confirm">删除</a>
                 </td>
             </tr>
         {% endfor %}

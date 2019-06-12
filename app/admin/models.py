@@ -13,9 +13,9 @@ class MenuModel(db.Model):
     def inject_test_data():
         menus = [
             {'name': '菜单管理', 'module': 'admin.menu'},
-            {'name': '用户管理', 'module': 'user_admin.index'},
-            {'name': '问题分类管理', 'module': 'exam_admin.category'},
-            {'name': '问题管理', 'module': 'exam_admin.question'},
+            {'name': '用户管理', 'module': 'user.admin.index'},
+            {'name': '问题分类管理', 'module': 'exam.admin.category'},
+            {'name': '问题管理', 'module': 'exam.admin.question'},
         ]
 
         for menu in menus:
