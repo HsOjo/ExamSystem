@@ -69,38 +69,9 @@
 
 {% block scripts %}
     {{ super() }}
+    <script src="{{ url_for('exam.admin.question.static', filename='admin/question/item.js') }}"></script>
+
     <script>
-        let newItem = function () {
-            let new_item = $('#dummy_item').clone();
-            new_item.removeAttr('id');
-            new_item.addClass('option-item');
-            return new_item;
-        };
-
-        let addOption = function (is_correct, content) {
-            let item = newItem();
-            item.find('.item-correct').attr('checked', is_correct);
-            item.find('.item-content').val(content);
-            item.find('.item-delete').click(function () {
-                item.remove();
-            });
-            $('#t_options').find('tbody').append(item);
-            item.fadeIn('fast');
-        };
-
-        let getData = function () {
-            let data = {'data': [], 'correct': []};
-
-            $('.option-item').each(function () {
-                let correct = $(this).find('.item-correct').is(':checked');
-                let content = $(this).find('.item-content').val();
-                data['data'].push(content);
-                data['correct'].push(correct);
-            });
-
-            return data;
-        };
-
         $('#b_add').click(function () {
             addOption(false, '');
         });
@@ -110,14 +81,6 @@
             $('#data').val(JSON.stringify(data['data']));
             $('#correct').val(JSON.stringify(data['correct']));
         });
-
-        let injectData = function () {
-            let data = JSON.parse($('#data').val());
-            let correct = JSON.parse($('#correct').val());
-            for (let i = 0; i < data.length; i++) {
-                addOption(correct[i], data[i]);
-            }
-        };
 
         injectData();
     </script>
