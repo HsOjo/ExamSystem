@@ -2,7 +2,7 @@ from flask import render_template, request, flash, redirect
 
 from .forms import QuestionAddForm, QuestionEditForm
 from ... import exam_admin_question
-from ...models import QuestionModel
+from ...models import QuestionModel, CategoryModel
 from .... import db
 from ....admin.utils import admin_required
 
@@ -19,12 +19,20 @@ def index():
 @admin_required
 def add():
     form = QuestionAddForm()
+    form.category.choices = [(category.id, category.name) for category in CategoryModel.query.all()]
 
     if request.method == 'POST' and form.validate_on_submit():
-        question = QuestionModel(name=form.name.data)
+        question = QuestionModel(
+            type=form.type.data,
+            rank=form.rank.data,
+            title=form.title.data,
+            data=form.data.data,
+            correct=form.correct.data,
+            category_id=form.category.data,
+        )
         db.session.add(question)
         db.session.commit()
-        flash('%s 添加成功！' % question.name, 'success')
+        flash('添加成功！', 'success')
 
     return render_template('exam/admin/question/add.html', form=form)
 
@@ -33,16 +41,27 @@ def add():
 @admin_required
 def edit(id):
     form = QuestionEditForm()
+    form.category.choices = [(category.id, category.name) for category in CategoryModel.query.all()]
     question = QuestionModel.query.get(id)  # type: QuestionModel
 
     if request.method == 'POST' and form.validate_on_submit():
-        question.name = form.name.data
+        question.type = form.type.data
+        question.rank = form.rank.data
+        question.title = form.title.data
+        question.data = form.data.data
+        question.correct = form.correct.data
+        question.category_id = form.category.data
 
         db.session.add(question)
         db.session.commit()
-        flash('%s 编辑成功！' % question.name, 'success')
+        flash('编辑成功！', 'success')
     else:
-        form.name.data = question.name
+        form.type.data = question.type
+        form.rank.data = question.rank
+        form.title.data = question.title
+        form.data.data = question.data
+        form.correct.data = question.correct
+        form.category.data = question.category_id
 
     return render_template('exam/admin/question/edit.html', form=form)
 
@@ -54,6 +73,6 @@ def delete(id):
 
     db.session.delete(question)
     db.session.commit()
-    flash('%s 删除成功！' % question.name, 'success')
+    flash('删除成功！', 'success')
 
     return redirect(request.referrer)
