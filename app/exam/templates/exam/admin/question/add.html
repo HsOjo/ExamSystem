@@ -6,8 +6,10 @@
 
 {% block inner_content %}
     <ul id="tab" class="nav nav-tabs">
-        <li><a href="{{ url_for('exam.admin.question.index') }}">问题列表</a></li>
-        <li class="active"><a href="{{ url_for('exam.admin.question.add') }}">添加问题</a></li>
+        {% block tab_content %}
+            <li><a href="{{ url_for('exam.admin.question.index') }}">问题列表</a></li>
+            <li class="active"><a href="{{ url_for('exam.admin.question.add') }}">添加问题</a></li>
+        {% endblock %}
     </ul>
     <div class="placeholder"></div>
     <div class="row">
@@ -25,36 +27,56 @@
                 <div class="row">
                     <div class="col-md-10">
                         {{ wtf.form_field(form.data, 'inline') }}
-                        <table class="table table-striped" id="t_options">
-                            <thead>
-                            <tr>
-                                <th width="100">正确答案</th>
-                                <th>选项内容</th>
-                                <th width="120">操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr style="display: none" id="dummy_item">
-                                <td>
-                                    <div class="checkbox" style="margin: 0;">
-                                        <label>
-                                            <input class="form-control item-correct" type="checkbox"
-                                                   style="margin-top: 0">
-                                        </label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <label style="display: block;">
-                                        <input class="form-control item-content" placeholder="选项内容" type="text">
+
+                        <div id="content_judge" style="display: none">
+                            <label>正确答案</label>
+                            <div class="form-control">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="_judge_answer" id="item_true" checked> 对
                                     </label>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger" id="b_del">删除</button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <button type="button" class="btn btn-primary" id="b_add">添加选项</button>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="_judge_answer" id="item_false"> 错
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="content_select" style="display: none">
+                            <table class="table table-striped" id="t_options">
+                                <thead>
+                                <tr>
+                                    <th width="100">正确答案</th>
+                                    <th>选项内容</th>
+                                    <th width="120">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr style="display: none" id="dummy_item">
+                                    <td>
+                                        <div class="checkbox" style="margin: 0;">
+                                            <label>
+                                                <input class="form-control item-correct" type="checkbox"
+                                                       style="margin-top: 0">
+                                            </label>
+                                            <label class="item-num"></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <label style="display: block;">
+                                            <input class="form-control item-content" placeholder="选项内容" type="text">
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger item-delete">删除</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <button type="button" class="btn btn-primary" id="b_add">添加选项</button>
+                        </div>
                     </div>
                 </div>
 
@@ -69,18 +91,4 @@
 {% block scripts %}
     {{ super() }}
     <script src="{{ url_for('exam.admin.question.static', filename='admin/question/item.js') }}"></script>
-
-    <script>
-        $('#b_add').click(function () {
-            addOption(false, '');
-        });
-
-        $('#form').submit(function (event) {
-            let data = getData();
-            $('#data').val(JSON.stringify(data['data']));
-            $('#correct').val(JSON.stringify(data['correct']));
-        });
-
-        injectData();
-    </script>
 {% endblock %}

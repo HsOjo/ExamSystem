@@ -1,87 +1,11 @@
-{% extends 'admin/base.html' %}
+{% extends 'exam/admin/question/add.html' %}
 
 {% block title %}
     {{ super() }}-编辑问题
 {% endblock %}
 
-{% block inner_content %}
-    <ul id="tab" class="nav nav-tabs">
-        <li><a href="{{ url_for('exam.admin.question.index') }}">问题列表</a></li>
-        <li><a href="{{ url_for('exam.admin.question.add') }}">添加问题</a></li>
-        <li class="active"><a href="{{ request.path }}">编辑问题</a></li>
-    </ul>
-    <div class="placeholder"></div>
-    <div class="row">
-        <div class="col-md-12">
-            <form class="form" method="post" id="form">
-                <div class="row">
-                    <div class="col-md-4">
-                        {{ wtf.form_field(form.type) }}
-                        {{ wtf.form_field(form.rank) }}
-                        {{ wtf.form_field(form.title) }}
-                        {{ wtf.form_field(form.category) }}
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-10">
-                        {{ wtf.form_field(form.data, 'inline') }}
-                        <table class="table table-striped" id="t_options">
-                            <thead>
-                            <tr>
-                                <th width="100">正确答案</th>
-                                <th>选项内容</th>
-                                <th width="120">操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr style="display: none" id="dummy_item">
-                                <td>
-                                    <div class="checkbox" style="margin: 0;">
-                                        <label>
-                                            <input class="form-control item-correct" type="checkbox"
-                                                   style="margin-top: 0">
-                                        </label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <label style="display: block;">
-                                        <input class="form-control item-content" placeholder="选项内容" type="text">
-                                    </label>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger item-delete">删除</button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <button type="button" class="btn btn-primary" id="b_add">添加选项</button>
-                    </div>
-                </div>
-
-                {{ wtf.form_field(form.correct, 'inline') }}
-                {{ wtf.form_field(form.csrf_token, 'inline') }}
-                {{ wtf.form_field(form.submit) }}
-            </form>
-        </div>
-    </div>
-{% endblock %}
-
-{% block scripts %}
-    {{ super() }}
-    <script src="{{ url_for('exam.admin.question.static', filename='admin/question/item.js') }}"></script>
-
-    <script>
-        $('#b_add').click(function () {
-            addOption(false, '');
-        });
-
-        $('#form').submit(function (event) {
-            let data = getData();
-            $('#data').val(JSON.stringify(data['data']));
-            $('#correct').val(JSON.stringify(data['correct']));
-        });
-
-        injectData();
-    </script>
+{% block tab_content %}
+    <li><a href="{{ url_for('exam.admin.question.index') }}">问题列表</a></li>
+    <li><a href="{{ url_for('exam.admin.question.add') }}">添加问题</a></li>
+    <li class="active"><a href="{{ request.path }}">编辑问题</a></li>
 {% endblock %}
