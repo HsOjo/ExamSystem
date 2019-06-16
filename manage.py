@@ -11,6 +11,7 @@ from config import Config
 app = create_app(Config)
 je = app.jinja_env.globals
 je['MenuModel'] = MenuModel
+je['CategoryModel'] = CategoryModel
 je['check_rule_valid'] = check_rule_valid
 
 manager = Manager(app)

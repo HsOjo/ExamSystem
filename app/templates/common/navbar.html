@@ -7,6 +7,19 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ url_for('main.index') }}">首页</a></li>
             </ul>
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="true">
+                        分类选择
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        {% for category in CategoryModel.query.all() %}
+                            <li><a href="{{ url_for('exam.category.view', id=category.id) }}">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"

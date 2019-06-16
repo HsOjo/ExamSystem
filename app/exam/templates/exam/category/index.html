@@ -1,0 +1,11 @@
+{% extends 'common/base.html' %}
+
+{% block title %}问题分类-{{ category.name }}{% endblock %}
+
+{% block inner_content %}
+{% for question in category.questions %}
+    <div class="row">
+        <h3>{{ question.title }}</h3>
+    </div>
+{% endfor %}
+{% endblock %}
