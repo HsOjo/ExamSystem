@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, IntegerField, HiddenField, SelectField
+from wtforms import StringField, SubmitField, IntegerField, HiddenField, SelectField, TextAreaField
 from wtforms.validators import DataRequired
 
 QUESTION_JUDGE = 1
@@ -17,6 +17,7 @@ class QuestionAddForm(FlaskForm):
     ))
     rank = IntegerField('难度', validators=[DataRequired()])
     title = StringField('题目', validators=[DataRequired()])
+    description = TextAreaField('描述', validators=[DataRequired()])
     data = HiddenField('数据', validators=[DataRequired()])
     correct = HiddenField('正确答案', validators=[DataRequired()])
     category = SelectField('分类', coerce=int, validators=[DataRequired()])

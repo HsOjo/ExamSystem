@@ -26,6 +26,7 @@ def add():
             type=form.type.data,
             rank=form.rank.data,
             title=form.title.data,
+            descroption=form.description.data,
             data=form.data.data,
             correct=form.correct.data,
             category_id=form.category.data,
@@ -48,6 +49,7 @@ def edit(id):
         question.type = form.type.data
         question.rank = form.rank.data
         question.title = form.title.data
+        question.description = form.description.data
         question.data = form.data.data
         question.correct = form.correct.data
         question.category_id = form.category.data
@@ -59,6 +61,7 @@ def edit(id):
         form.type.data = question.type
         form.rank.data = question.rank
         form.title.data = question.title
+        form.description.data = question.description
         form.data.data = question.data
         form.correct.data = question.correct
         form.category.data = question.category_id

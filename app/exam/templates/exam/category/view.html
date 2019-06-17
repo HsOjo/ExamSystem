@@ -5,7 +5,8 @@
 {% block inner_content %}
 {% for question in category.questions %}
     <div class="row">
-        <h3>{{ question.title }}</h3>
+        <h4>{{ question.title }}</h4>
+        <p>{{ question.description }}</p>
     </div>
 {% endfor %}
 {% endblock %}

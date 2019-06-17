@@ -29,6 +29,7 @@ class QuestionModel(db.Model):
     type = db.Column(db.Integer)
     rank = db.Column(db.Integer)
     title = db.Column(db.VARCHAR)
+    description = db.Column(db.VARCHAR)
     data = db.Column(db.VARCHAR)
     correct = db.Column(db.VARCHAR)
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
