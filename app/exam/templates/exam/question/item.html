@@ -1,0 +1,60 @@
+{% macro basic(title, description) %}
+    <h3 class="question-title">{{ title }}</h3>
+    <p class="question-description">{{ description }}</p>
+{% endmacro %}
+
+{% macro judge(id) %}
+    <label>答案</label>
+    <div class="form-control">
+        <div class="radio-inline">
+            <label>
+                <input name="question[{{ id }}]" type="radio" value="1">对
+            </label>
+        </div>
+        <div class="radio-inline">
+            <label>
+                <input name="question[{{ id }}]" type="radio" value="0">错
+            </label>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro single(id, data) %}
+    <label>答案</label>
+    {% for index, option in enumerate(data) %}
+        <div class="radio form-control">
+            <label>
+                <input name="question[{{ id }}]" type="radio" value="{{ index }}">{{ option }}
+            </label>
+        </div>
+    {% endfor %}
+{% endmacro %}
+
+{% macro multi(id, data) %}
+    <label>答案</label>
+    {% for index, option in enumerate(data) %}
+        <div class="checkbox form-control">
+            <label>
+                <input name="question[{{ id }}]" type="checkbox" value="{{ index }}">{{ option }}
+            </label>
+        </div>
+    {% endfor %}
+{% endmacro %}
+
+{% macro generate(question) %}
+    {% set question_data = json_load(question.data) %}
+
+    <div class="question">
+        {{ basic(question.title, question.description) }}
+
+        <div class="question-content">
+            {% if question.type == 1 %}
+                {{ judge(question.id) }}
+            {% elif question.type == 2 %}
+                {{ single(question.id, question_data) }}
+            {% elif question.type == 3 %}
+                {{ multi(question.id, question_data) }}
+            {% endif %}
+        </div>
+    </div>
+{% endmacro %}

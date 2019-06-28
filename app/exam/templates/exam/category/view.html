@@ -3,10 +3,12 @@
 {% block title %}问题分类-{{ category.name }}{% endblock %}
 
 {% block inner_content %}
-{% for question in category.questions %}
-    <div class="row">
-        <h4>{{ question.title }}</h4>
-        <p>{{ question.description }}</p>
-    </div>
-{% endfor %}
+    {% for question in category.questions %}
+        <div class="row">
+            <a href="{{ url_for('exam.question.view', id=question.id) }}">
+                <h4>{{ question.title }}</h4>
+            </a>
+            <p>{{ question.description }}</p>
+        </div>
+    {% endfor %}
 {% endblock %}

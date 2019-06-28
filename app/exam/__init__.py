@@ -22,3 +22,4 @@ from .admin.category import views
 from .admin.question import views
 
 from .category import views
+from .question import views
