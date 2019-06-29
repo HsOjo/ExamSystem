@@ -1,0 +1,87 @@
+{% extends 'admin/base.html' %}
+
+{% block inner_content %}
+    <ul id="tab" class="nav nav-tabs">
+        {% block tab_content %}{% endblock %}
+    </ul>
+    <div class="placeholder"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form" method="post" id="form">
+                <div class="row">
+                    <div class="col-md-4">
+                        {{ wtf.form_field(form.type) }}
+                        {{ wtf.form_field(form.rank) }}
+                        {{ wtf.form_field(form.title) }}
+                        {{ wtf.form_field(form.description) }}
+                        {{ wtf.form_field(form.category) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10">
+                        {{ wtf.form_field(form.data, 'inline') }}
+
+                        <div id="content_judge" style="display: none">
+                            <label>正确答案</label>
+                            <div class="form-control">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="_judge_answer" id="item_true" checked> 对
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="_judge_answer" id="item_false"> 错
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="content_select" style="display: none">
+                            <table class="table table-striped" id="t_options">
+                                <thead>
+                                <tr>
+                                    <th width="100">正确答案</th>
+                                    <th>选项内容</th>
+                                    <th width="120">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr style="display: none" id="dummy_item">
+                                    <td>
+                                        <div class="checkbox" style="margin: 0;">
+                                            <label>
+                                                <input class="form-control item-correct" type="checkbox"
+                                                       style="margin-top: 0">
+                                            </label>
+                                            <label class="item-num"></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <label style="display: block;">
+                                            <input class="form-control item-content" placeholder="选项内容" type="text">
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger item-delete">删除</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <button type="button" class="btn btn-primary" id="b_add">添加选项</button>
+                        </div>
+                    </div>
+                </div>
+
+                {{ wtf.form_field(form.csrf_token, 'inline') }}
+                {{ wtf.form_field(form.submit) }}
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('exam.admin.question.static', filename='admin/question/item.js') }}"></script>
+{% endblock %}

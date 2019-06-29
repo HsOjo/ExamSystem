@@ -21,10 +21,10 @@
 
 {% macro single(id, data) %}
     <label>答案</label>
-    {% for index, option in enumerate(data) %}
+    {% for index, option in enumerate(data['items']) %}
         <div class="radio form-control">
             <label>
-                <input name="question[{{ id }}]" type="radio" value="{{ index }}">{{ option }}
+                <input name="question[{{ id }}]" type="radio" value="{{ index }}">{{ alpha_num(index) }}. {{ option.content }}
             </label>
         </div>
     {% endfor %}
@@ -32,10 +32,10 @@
 
 {% macro multi(id, data) %}
     <label>答案</label>
-    {% for index, option in enumerate(data) %}
+    {% for index, option in enumerate(data['items']) %}
         <div class="checkbox form-control">
             <label>
-                <input name="question[{{ id }}]" type="checkbox" value="{{ index }}">{{ option }}
+                <input name="question[{{ id }}]" type="checkbox" value="{{ index }}">{{ alpha_num(index) }}. {{ option.content }}
             </label>
         </div>
     {% endfor %}

@@ -3,7 +3,7 @@ from flask_script import Manager, Shell
 
 from app import db, create_app
 from app.admin.models import MenuModel
-from app.common import check_rule_valid, json_load, json_dump
+from app.common import check_rule_valid, json_load, json_dump, alpha_num
 from app.exam.models import QuestionModel, CategoryModel
 from app.user.models import UserModel
 from config import Config
@@ -16,6 +16,7 @@ je['CategoryModel'] = CategoryModel
 je['check_rule_valid'] = check_rule_valid
 je['json_load'] = json_load
 je['json_dump'] = json_dump
+je['alpha_num'] = alpha_num
 
 manager = Manager(app)
 migrate = Migrate(app, db)

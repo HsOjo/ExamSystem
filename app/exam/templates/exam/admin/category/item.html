@@ -1,0 +1,13 @@
+{% extends 'admin/base.html' %}
+
+{% block inner_content %}
+    <ul id="tab" class="nav nav-tabs">
+        {% block tab_content %}{% endblock %}
+    </ul>
+    <div class="placeholder"></div>
+    <div class="row">
+        <div class="col-md-4">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+{% endblock %}

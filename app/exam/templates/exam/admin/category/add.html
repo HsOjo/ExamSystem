@@ -1,18 +1,10 @@
-{% extends 'admin/base.html' %}
+{% extends 'exam/admin/category/item.html' %}
 
 {% block title %}
     {{ super() }}-添加分类
 {% endblock %}
 
-{% block inner_content %}
-    <ul id="tab" class="nav nav-tabs">
-        <li><a href="{{ url_for('exam.admin.category.index') }}">分类列表</a></li>
-        <li class="active"><a href="{{ url_for('exam.admin.category.add') }}">添加分类</a></li>
-    </ul>
-    <div class="placeholder"></div>
-    <div class="row">
-        <div class="col-md-4">
-            {{ wtf.quick_form(form) }}
-        </div>
-    </div>
+{% block tab_content %}
+    <li><a href="{{ url_for('exam.admin.category.index') }}">分类列表</a></li>
+    <li class="active"><a href="{{ url_for('exam.admin.category.add') }}">添加分类</a></li>
 {% endblock %}

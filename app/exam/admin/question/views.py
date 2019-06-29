@@ -26,9 +26,8 @@ def add():
             type=form.type.data,
             rank=form.rank.data,
             title=form.title.data,
-            descroption=form.description.data,
+            description=form.description.data,
             data=form.data.data,
-            correct=form.correct.data,
             category_id=form.category.data,
         )
         db.session.add(question)
@@ -51,7 +50,6 @@ def edit(id):
         question.title = form.title.data
         question.description = form.description.data
         question.data = form.data.data
-        question.correct = form.correct.data
         question.category_id = form.category.data
 
         db.session.add(question)
@@ -63,7 +61,6 @@ def edit(id):
         form.title.data = question.title
         form.description.data = question.description
         form.data.data = question.data
-        form.correct.data = question.correct
         form.category.data = question.category_id
 
     return render_template('exam/admin/question/edit.html', form=form)

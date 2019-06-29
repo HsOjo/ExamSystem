@@ -7,7 +7,7 @@ QUESTION_SELECT_SINGLE = 2
 QUESTION_SELECT_MULTI = 3
 
 
-class QuestionAddForm(FlaskForm):
+class QuestionForm(FlaskForm):
     type = SelectField('类型', coerce=int, choices=list(
         {
             QUESTION_JUDGE: '判断题',
@@ -17,12 +17,14 @@ class QuestionAddForm(FlaskForm):
     ))
     rank = IntegerField('难度', validators=[DataRequired()])
     title = StringField('题目', validators=[DataRequired()])
-    description = TextAreaField('描述', validators=[DataRequired()])
+    description = TextAreaField('描述')
     data = HiddenField('数据', validators=[DataRequired()])
-    correct = HiddenField('正确答案', validators=[DataRequired()])
     category = SelectField('分类', coerce=int, validators=[DataRequired()])
+
+
+class QuestionAddForm(QuestionForm):
     submit = SubmitField('添加')
 
 
-class QuestionEditForm(QuestionAddForm):
+class QuestionEditForm(QuestionForm):
     submit = SubmitField('编辑')

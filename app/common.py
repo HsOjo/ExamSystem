@@ -17,3 +17,7 @@ def json_load(*args, **kwargs):
 
 def json_dump(*args, **kwargs):
     return json.dumps(*args, **kwargs)
+
+
+def alpha_num(num):
+    return chr(ord('A') + num)

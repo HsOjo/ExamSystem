@@ -45,7 +45,7 @@ const addOption = function (is_correct, content) {
 
 const getData = function () {
     let type = $('#type').val();
-    let data = {'data': null, 'correct': null};
+    let data = {};
 
     if (type === '1') {
         if ($('#item_true').is(':checked'))
@@ -53,14 +53,11 @@ const getData = function () {
         else if ($('#item_false').is(':checked'))
             data['correct'] = false;
     } else if (type === '2' || type === '3') {
-        data['data'] = [];
-        data['correct'] = [];
-
+        data['items'] = [];
         $('.option-item').each(function () {
-            let correct = $(this).find('.item-correct').is(':checked');
             let content = $(this).find('.item-content').val();
-            data['data'].push(content);
-            data['correct'].push(correct);
+            let correct = $(this).find('.item-correct').is(':checked');
+            data['items'].push({'content': content, 'correct': correct});
         });
     }
 
@@ -70,21 +67,19 @@ const getData = function () {
 const injectData = function () {
     let type = $('#type').val();
     let data_str = $('#data').val();
-    let correct_str = $('#correct').val();
 
-    if (data_str !== '' && correct_str !== '') {
+    if (data_str !== '') {
         let data = JSON.parse(data_str);
-        let correct = JSON.parse(correct_str);
 
         if (type === '1') {
-            if (correct) {
+            if (data['correct']) {
                 $('#item_true').prop('checked', true);
             } else {
                 $('#item_false').prop('checked', true);
             }
         } else if (type === '2' || type === '3') {
-            for (let i = 0; i < data.length; i++) {
-                addOption(correct[i], data[i]);
+            for (let i of data['items']) {
+                addOption(i['correct'], i['content']);
             }
         }
     }
@@ -116,8 +111,7 @@ $('#b_add').click(function () {
 
 $('#form').submit(function (event) {
     let data = getData();
-    $('#data').val(JSON.stringify(data['data']));
-    $('#correct').val(JSON.stringify(data['correct']));
+    $('#data').val(JSON.stringify(data));
 });
 
 
